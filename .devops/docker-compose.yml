@@ -1,0 +1,27 @@
+services:
+  # 容器服务名称
+  neon_sandbox_dev:
+    # 容器服务构建来源
+    build:
+      # 上下文路径是项目根目录
+      context: ../
+      # Dockerfile文件路径，基于上下文的位置
+      dockerfile: .devops/Dockerfile
+    # 将当前目录挂载到工作空间/sandbox
+    volumes:
+      # 根目录映射到容器内部的 /sandbox 目录下
+      - ../:/sandbox
+    # 端口映射
+    ports:
+      - "6000:22" # 本地6000->容器SSH 22
+      - "6001:8080" # 本地6001->容器Sandbox 8080
+    # 容器的名字
+    container_name: neon_sandbox_dev
+    # 碰到错误则自动重启
+    restart: always
+
+
+# 启动服务(项目根目录下运行)
+# docker-compose -f .devops/docker-compose.yml up -d --build
+# 通过这种方式，IDE 可以连接到容器中进行开发。
+# 而且是双向同步，在 IDE 中修改代码，容器中也会同步修改。反过来也是一样的。
