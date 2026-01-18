@@ -10,6 +10,7 @@ from functools import lru_cache
 
 from app.services.shell import ShellService
 from app.services.file import FileService
+from app.services.supervisor import SupervisorService
 
 
 @lru_cache()
@@ -22,3 +23,8 @@ def get_shell_service() -> ShellService:
 def get_file_service() -> FileService:
     """ 获取 FileService 实例 """
     return FileService()
+
+
+@lru_cache()
+def get_supervisor_service() -> SupervisorService:
+    return SupervisorService()

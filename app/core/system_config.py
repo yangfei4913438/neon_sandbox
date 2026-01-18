@@ -12,13 +12,13 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class SystemConfig(BaseSettings):
     """ 系统配置 """
-    log_level: str = 'INFO' # 日志级别
-    server_timeout: int = 60 # 服务器超时时间，单位：分
+    log_level: str = 'INFO'  # 日志级别
+    server_timeout: int = 60  # 服务器超时时间，单位：分
 
     model_config = SettingsConfigDict(
-        env_file='.env', # 环境变量文件的路径
-        env_file_encoding='utf-8', # 环境变量文件的编码
-        extra="ignore", # 忽略传递进来的其他配置
+        env_file='.env',  # 环境变量文件的路径
+        env_file_encoding='utf-8',  # 环境变量文件的编码
+        extra="ignore",  # 忽略传递进来的其他配置
     )
 
 
