@@ -13,6 +13,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.log_config import setup_logging
+from app.core.middleware import auto_extend_timeout_middleware
 from app.core.system_config import get_settings
 from app.interface.endpoints.routes import router
 from app.interface.errors.exception_handles import register_exception_handlers
@@ -67,6 +68,8 @@ app = FastAPI(
 )
 
 # 5. 添加中间件
+# http 中间件
+app.middleware('http')(auto_extend_timeout_middleware)
 # 添加跨域中间件
 app.add_middleware(
     # 可在此添加中间件，例如 CORS、请求日志等
