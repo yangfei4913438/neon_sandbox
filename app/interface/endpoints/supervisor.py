@@ -17,7 +17,7 @@ from app.models.supervisor import ProcessInfo, SupervisorActionResult, Superviso
 from app.services.supervisor import SupervisorService
 
 # supervisor模块路由
-router = APIRouter(prefix='/supervisors', tags=['supervisor模块'])
+router = APIRouter(prefix='/supervisor', tags=['supervisor模块'])
 
 
 @router.get(
