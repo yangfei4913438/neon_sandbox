@@ -19,7 +19,7 @@ from app.models.file import FileReadResult, FileWriteResult, FileReplaceResult, 
 from app.services.file import FileService
 
 # 文件模块路由
-router = APIRouter(prefix='/files', tags=['文件模块'])
+router = APIRouter(prefix='/file', tags=['文件模块'])
 
 
 @router.post(
