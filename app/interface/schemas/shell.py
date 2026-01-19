@@ -13,7 +13,6 @@ from pydantic import BaseModel, Field
 
 class ShellExecuteRequest(BaseModel):
     """ 执行命令请求结构体 """
-    agent_id: str = Field(..., description='执行命令的智能体 ID')
     session_id: Optional[str] = Field(default=None, description='目标 Shell 会话的唯一标识符')
     exec_dir: Optional[str] = Field(default=None, description='执行命令的工作目录，必须是绝对路径')
     command: str = Field(..., description='要执行的 Shell 命令')

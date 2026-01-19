@@ -143,51 +143,12 @@ class ShellService:
         return clean_console_records
 
     @classmethod
-    def create_session_id(cls, agent_id: str) -> str:
+    def create_session_id(cls) -> str:
         """ 创建会话 ID """
-        clean_agent_id = agent_id.strip() if agent_id else ""
-        if not clean_agent_id:
-            raise BadRequestException("Agent ID 不能为空")
-        try:
-            # 验证是否为合法 UUID（避免传入非 UUID 字符串）
-            uuid.UUID(clean_agent_id)
-        except ValueError:
-            raise BadRequestException(f"agent_id 不是合法 UUID 格式：{agent_id}")
-
-        # Agent ID 和 本次生成的 uuid 拼接成会话 ID
-        session_id = f"agent-{clean_agent_id}_uuid-{uuid.uuid4()}"
-
-        # 记录日志
-        logger.info(f"创建 Shell 会话 | agent_id: {clean_agent_id} | session_id: {session_id}")
+        session_id = str(uuid.uuid4())
+        logger.info(f"创建一个新的Shell会话ID: {session_id}")
         # 返回 session_id
         return session_id
-
-    @classmethod
-    def _get_agent_id(cls, session_id: str) -> Optional[uuid.UUID]:
-        """
-        解析 session_id，提取 agent_id （二次校验，防恶意构造）
-        :return: agent_id: 合法 UUID 字符串
-        """
-        parts = session_id.split("_uuid-")
-        if len(parts) != 2:
-            logger.warning(f"无效 session_id 格式：{session_id}")
-            return None
-
-        agent_part = parts[0]
-
-        # 提取并校验 agent_id（二次校验，防恶意构造）
-        if not agent_part.startswith("agent-"):
-            logger.warning(f"无效 session_id 格式：{session_id}")
-            return None
-
-        agent_id = agent_part.replace("agent-", "")
-        try:
-            uuid.UUID(agent_id)
-        except ValueError:
-            logger.warning(f"无效 session_id 格式：{agent_id}")
-            return None
-
-        return agent_id
 
     async def wait_process(self, session_id: str, seconds: Optional[int] = None) -> ShellWaitResult:
         """传递会话id+时间，等待子进程结束"""

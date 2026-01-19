@@ -34,7 +34,7 @@ async def exec_command(
     # 判断 session_id 是否存在，如果不存在则创建一个
     if not request.session_id or not request.session_id.strip():
         # 创建一个新的会话 ID
-        request.session_id = shell_service.create_session_id(request.agent_id)
+        request.session_id = shell_service.create_session_id()
 
     # 判断是否传递了执行目录，如果没传递，则使用根目录作为执行目录
     if not request.exec_dir or not request.exec_dir.strip():
